@@ -39,6 +39,15 @@ async function listDatasets(token) {
   }
 }
 
+function logFirst10Rows(filePath) {
+  const csvContent = fs.readFileSync(filePath, 'utf8');
+  const lines = csvContent.split('\n').filter(line => line.trim() !== '');
+  const first10 = lines.slice(0, 10);
+
+  console.log('\n📄 First 10 records in the CSV:\n');
+  console.log(first10.join('\n'));
+}
+
 async function exportDataset(token, datasetId, limit = 3, offset = 0) {
     console.log('in exportDataSet')
 
@@ -92,6 +101,9 @@ async function main() {
     const outputPath = path.join(__dirname, 'combined_datasets.csv');
     fs.writeFileSync(outputPath, combinedCSV, 'utf8');
     console.log(`✅ Combined CSV saved to ${outputPath}`);
+    logFirst10Rows(outputPath);
+
+
   } catch (err) {
     console.error('❌ Script failed:', err.message);
   }
