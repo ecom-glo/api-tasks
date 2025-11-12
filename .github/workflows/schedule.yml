@@ -24,7 +24,7 @@ jobs:
         run: npm install axios basic-ftp
 
       # 4️⃣ Run the script
-      - name: Run Domo export & FTP
+      - name: Execute Domo APIs & create CSV
         env:
           DOMO_CLIENT_ID: ${{ secrets.DOMO_CLIENT_ID }}
           DOMO_CLIENT_SECRET: ${{ secrets.DOMO_CLIENT_SECRET }}
