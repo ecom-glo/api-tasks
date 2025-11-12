@@ -6,7 +6,7 @@ on:
   workflow_dispatch:       # allows manual runs
 
 jobs:
-  export-and-ftp:
+  execute-apis-and-create-csv:
     runs-on: ubuntu-latest
     steps:
       # 1️⃣ Checkout the repo
