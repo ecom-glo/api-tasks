@@ -1,4 +1,4 @@
-name: Export Domo dataset & FTP
+name: Scheduler - Run Domo
 
 on:
   schedule:
