@@ -23,6 +23,7 @@ async function getAccessToken() {
 }
 
 async function listDatasets(token) {
+  console.log('in list DataSet')
   const url = 'https://api.domo.com/v1/datasets';
   try {
     const response = await axios.get(url, {
@@ -39,6 +40,8 @@ async function listDatasets(token) {
 }
 
 async function exportDataset(token, datasetId, limit = 3, offset = 0) {
+    console.log('in exportDataSet')
+
   const url = `https://api.domo.com/v1/datasets/${datasetId}/data?includeHeader=true&limit=${limit}&offset=${offset}`;
   try {
     const response = await axios.get(url, {
