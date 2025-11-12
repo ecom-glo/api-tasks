@@ -1,27 +1,31 @@
-name: Run API script on schedule
+name: Export Domo dataset & FTP
 
 on:
   schedule:
-    # Runs every day at 2 AM UTC
-    - cron: "0 2 * * *"
-  workflow_dispatch:  # allows you to run it manually too
+    - cron: "0 2 * * *"   # daily at 2 AM UTC
+  workflow_dispatch:       # allows manual runs
 
 jobs:
-  run-api:
+  export-and-ftp:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repo
+      # 1️⃣ Checkout the repo
+      - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2️⃣ Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
-        run: npm install axios
+        run: npm install axios basic-ftp
 
-      - name: Run API script
+      # 4️⃣ Run the script
+      - name: Run Domo export & FTP
         env:
-          API_TOKEN: ${{ secrets.API_TOKEN }}
+          DOMO_CLIENT_ID: ${{ secrets.DOMO_CLIENT_ID }}
+          DOMO_CLIENT_SECRET: ${{ secrets.DOMO_CLIENT_SECRET }}
         run: node run.js
