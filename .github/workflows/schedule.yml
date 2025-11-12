@@ -1,0 +1,27 @@
+name: Run API script on schedule
+
+on:
+  schedule:
+    # Runs every day at 2 AM UTC
+    - cron: "0 2 * * *"
+  workflow_dispatch:  # allows you to run it manually too
+
+jobs:
+  run-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install axios
+
+      - name: Run API script
+        env:
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+        run: node run.js
